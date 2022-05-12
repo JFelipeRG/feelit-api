@@ -1,14 +1,4 @@
-const users = [{
-    id: 1,
-    name: "Richard Hendricks",
-    email: "richard@piedpiper.com",
-},
-{
-    id: 2,
-    name: "Bertram Gilfoyle",
-    email: "gilfoyle@piedpiper.com",
-},
-];
+const pool = require('../data/config')
 
 const router = app => {
     app.get('/', (request, response) => {
@@ -18,8 +8,12 @@ const router = app => {
     });
 
     app.get('/users', (request, response) => {
-        response.send(users);
-    });
+        pool.query('SELECT * FROM usuarios', (error, result) => {
+            if (error) throw error;
+     
+            response.send(result);
+        });
+    })
 }
 
 module.exports = router
