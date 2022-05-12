@@ -4,7 +4,7 @@ const config = {
     host: 'localhost',
     user: 'admin',
     password: 'root',
-    database: 'empresa',
+    database: 'feel it',
 }
 
 const pool = mysql.createPool(config)
