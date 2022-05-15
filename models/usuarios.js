@@ -31,10 +31,6 @@ module.exports = (sequelize, DataTypes) => {
     profile_img: {
       allowNull: true,
       type: DataTypes.STRING
-    },
-    fecha_creacion: {
-      type: DataTypes.DATE,
-      defaultValue: sequelize.literal('current_timestamp()')
     }
   }, {
     timestamps: false,
