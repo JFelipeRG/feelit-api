@@ -10,11 +10,17 @@ const router = app => {
         });
     });
 
-    app.post('/api/login', userController.find)
+    app.post('/api/user/search', userController.search)
 
-    app.post('/api/register', userController.create)
+    app.post('/api/user/login', userController.find)
+
+    app.post('/api/user/register', userController.create)
 
     app.get('/api/posts', postsController.list)
+
+    app.post('/api/posts/create', postsController.create)
+
+    app.post('/api/posts/delete', postsController.remove)
 
     app.get('/api/canciones', cancionesController.list)
 }

@@ -11,7 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      usuarios.hasMany(models.posts, {
+        foreignKey: 'usuario_id',
+        as:'posts'
+      })
     }
   }
   usuarios.init({
@@ -31,6 +34,14 @@ module.exports = (sequelize, DataTypes) => {
     profile_img: {
       allowNull: true,
       type: DataTypes.STRING
+    },
+    fecha_creacion: {
+      type: DataTypes.DATE,
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+      get: function() {
+        return this.getDataValue('fecha_creacion')
+          .toLocaleDateString();
+      }
     }
   }, {
     timestamps: false,

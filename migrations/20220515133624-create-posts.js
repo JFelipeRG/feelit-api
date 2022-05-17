@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      usuario: {
+      usuario_id: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
@@ -20,7 +20,7 @@ module.exports = {
         allowNull: true,
         type: Sequelize.STRING
       },
-      cancion: {
+      cancion_id: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
@@ -30,6 +30,7 @@ module.exports = {
       },
       fecha_post: {
         type: Sequelize.DATE,
+        defaultValue: Sequelize.literal('current_timestamp()'),
         allowNull: false,
       }
     });

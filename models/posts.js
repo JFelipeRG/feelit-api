@@ -10,30 +10,28 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      posts.belongsTo(models.usuarios,
-        {
-          as: 'fk_usuario',
-          foreignKey: 'usuario',
-        }
-      );
-      posts.belongsTo(models.canciones,
-        {
-          as: 'fk_cancion',
-          foreignKey: 'cancion',
-        }
-      );
+      posts.belongsTo(models.usuarios, {
+        as: 'usuario',
+        foreignKey: 'usuario_id'
+      });
+      posts.belongsTo(models.canciones, {
+        as: 'cancion',
+        foreignKey: 'cancion_id'
+      });
     }
   }
   posts.init({
-    usuario: DataTypes.INTEGER,
+    usuario_id: DataTypes.INTEGER,
     contenido: DataTypes.STRING,
-    cancion: DataTypes.INTEGER,
+    cancion_id: DataTypes.INTEGER,
     fecha_post: {
       type: DataTypes.DATE,
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
       get: function() {
-        return this.getDataValue('fecha_post' )
-          .toLocaleString('en-GB', { timeZone: 'UTC' });
-      },}
+        return this.getDataValue('fecha_post')
+          .toLocaleString();
+      }
+    }
   }, {
     timestamps: false,
     sequelize,

@@ -1,7 +1,5 @@
 'use strict';
 
-const { TIME, TIMESTAMP } = require("mysql/lib/protocol/constants/types");
-
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('usuarios', {
@@ -18,7 +16,11 @@ module.exports = {
       nick: {
         allowNull: false,
         unique: true,
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        references: {
+          model: 'posts',
+          key: 'usuario_id'
+        }
       },
       passw: {
         allowNull: false,
