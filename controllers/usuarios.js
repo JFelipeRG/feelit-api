@@ -2,17 +2,23 @@ const Sequelize = require('sequelize');
 const posts = require('../models').posts;
 const usuarios = require('../models').usuarios;
 const canciones = require('../models').canciones;
+const fs = require('fs')
+
 module.exports = {
  create (req, res) {
-    const { name, nick, passw, profile_img } = req.body
+    const { name, nick, passw } = req.body
+    const profileimg = req.file
     return usuarios.create ({
             name: name,
             nick: nick,
             passw: passw,
-            profile_img: profile_img
+            profile_img: profileimg ? profileimg.filename : null
         })
         .then(usuarios => res.status(200).send(usuarios))
-        .catch(error => res.status(400).send(error))
+        .catch(error => {  
+          res.status(400).send(error)
+          fs.unlinkSync(profileimg.path)
+        })
  },
  find (req, res) {
     const { nick, passw } = req.body

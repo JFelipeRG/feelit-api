@@ -1,4 +1,5 @@
 'use strict';
+const { get } = require('express/lib/response');
 const { TIMESTAMP } = require('mysql/lib/protocol/constants/types');
 const {
   Model
@@ -33,15 +34,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     profile_img: {
       allowNull: true,
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
     },
     fecha_creacion: {
       type: DataTypes.DATE,
-      defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
-      get: function() {
-        return this.getDataValue('fecha_creacion')
-          .toLocaleDateString();
-      }
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
     }
   }, {
     timestamps: false,
