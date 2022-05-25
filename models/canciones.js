@@ -30,6 +30,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     link_spoty: {
       type: DataTypes.STRING
+    },
+    fecha_publicacion: {
+      type: DataTypes.DATE,
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
     }
   }, {
     timestamps: false,

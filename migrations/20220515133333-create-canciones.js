@@ -31,6 +31,11 @@ module.exports = {
       link_spoty: {
         allowNull: false,
         type: Sequelize.STRING
+      },
+      fecha_publicacion: {
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal('current_timestamp()'),
+        allowNull: false,
       }
     });
   },

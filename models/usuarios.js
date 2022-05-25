@@ -1,6 +1,5 @@
 'use strict';
-const { get } = require('express/lib/response');
-const { TIMESTAMP } = require('mysql/lib/protocol/constants/types');
+
 const {
   Model
 } = require('sequelize');
@@ -40,10 +39,16 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE,
       defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
     }
-  }, {
+  },
+  {
     timestamps: false,
     sequelize,
     modelName: 'usuarios',
+    instanceMethods: {
+      validPassword: (password) => {
+       return bcrypt.compareSync(password, this.password);
+      }
+    }
   });
   return usuarios;
 };

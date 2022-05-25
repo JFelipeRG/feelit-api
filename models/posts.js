@@ -26,11 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     cancion_id: DataTypes.INTEGER,
     fecha_post: {
       type: DataTypes.DATE,
-      defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
-      get: function() {
-        return this.getDataValue('fecha_post')
-          .toLocaleString();
-      }
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
     }
   }, {
     timestamps: false,

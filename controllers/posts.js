@@ -4,7 +4,7 @@ const usuarios = require('../models').usuarios;
 const posts = require('../models').posts;
 module.exports = {
   create (req, res) {
-    const { user, content, song } = req.body
+    const { user, text, song } = req.body
 
     const responseUSer = usuarios.findOne({
       where: {
@@ -22,7 +22,7 @@ module.exports = {
     .then( responses => {
       return posts.create ({
         usuario_id: responses[0].dataValues.id,
-        contenido: content,
+        contenido: text,
         cancion_id: responses[1].dataValues.id
       })
       .then(posts => res.status(200).send(posts))
@@ -32,11 +32,12 @@ module.exports = {
   },
   list (_, res) {
     return posts.findAll({
+      order: [['fecha_post','DESC']],
       include: [{
         model: usuarios,
         as: 'usuario',
         attributes: [
-          'name', 'nick', 'profile_img'
+          'id','name', 'nick', 'profile_img'
         ]
       },{
         model: canciones,

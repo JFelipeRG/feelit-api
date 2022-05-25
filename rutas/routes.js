@@ -14,6 +14,10 @@ const router = app => {
         res.sendFile( `/storage/imgs/profile/${req.params.name}`, { root: '.'})
     })
 
+    app.get('/api/cancion/img/:name', (req, res) => {
+        res.sendFile( `/storage/imgs/caratulas/${req.params.name}`, { root: '.'})
+    })
+
     app.post('/api/user/search', userController.search)
 
     app.post('/api/user/login', userController.find)
@@ -27,6 +31,16 @@ const router = app => {
     app.post('/api/posts/delete', postsController.remove)
 
     app.get('/api/canciones', cancionesController.list)
+
+    app.post('/api/canciones/compartida', cancionesController.compartida)
+
+    app.post('/api/canciones/removecompartida', cancionesController.removecompartida)
+
+    app.post('/api/canciones/search', cancionesController.search)
+
+    app.get('/api/canciones/recent', cancionesController.recent)
+
+    app.get('/api/canciones/hot', cancionesController.hot)
 }
 
 module.exports = router
