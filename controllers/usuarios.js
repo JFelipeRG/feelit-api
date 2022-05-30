@@ -22,20 +22,25 @@ module.exports = {
           fs.unlinkSync(profileimg.path)
         })
  },
+
  find (req, res) {
     const { nick, passw } = req.body
+
     return usuarios.findOne({
       where: {
         nick: nick,
       }
     })
     .then(usuarios => {
-        if(usuarios.length===0 || !bcrypt.compareSync(passw, usuarios.dataValues.passw)) throw new Error() 
-        else res.status(200).send(usuarios)
+      if(!bcrypt.compareSync(passw, usuarios.dataValues.passw)) throw new Error() 
+      else res.status(200).send(usuarios)
 
     })
-    .catch(error => res.status(400).send(error))
+    .catch(error => {
+      res.status(400).send(error)
+    })
   },
+
   search (req,res) {
     const { nick } = req.body
     return usuarios.findOne({
@@ -63,5 +68,73 @@ module.exports = {
     })
     .then(usuarios => res.status(200).send(usuarios))
     .catch(error => res.status(400).send(error))
+  },
+
+  update (req, res) {
+    const { id, name, nick, actualImage } = req.body
+    const profileimg = req.file
+    
+    return usuarios.update({
+      name: name,
+      nick: nick,
+      profile_img: profileimg ? profileimg.filename : actualImage
+    },{
+      where: {
+        id: id
+      }
+    })
+    .then(usuarios => {
+      res.status(200).send(usuarios)
+      if(profileimg && actualImage !== 'default-user.png') {
+        fs.unlinkSync(`storage/imgs/profile/${actualImage}`)
+      }
+    })
+    .catch(error => res.status(400).send(error))
+    
+  },
+  
+  updatedUSer (req, res) {
+    const { id } = req.body
+    return usuarios.findOne({
+      where: {
+        id: id
+      }
+    })
+    .then(usuarios => res.status(200).send(usuarios))
+    .catch(error => res.status(400).send(error))  
+  },
+
+  removeImg (req, res) {
+    const { id, actualImage } = req.body
+    return usuarios.update({
+      profile_img: 'default-user.png'
+    },{
+      where: {
+        id: id
+      }
+    })
+    .then(usuarios => {
+      res.status(200).send(usuarios)
+      fs.unlinkSync(`storage/imgs/profile/${actualImage}`)
+    })
+    .catch(error => res.status(400).send(error))
+  },
+
+  changePassw (req, res) {
+    const { id, actualPassw, passw } = req.body
+    const passwordHash = bcrypt.hashSync(passw, 10)
+
+    if(bcrypt.compareSync(passw, actualPassw)) res.status(400).send()
+    else {
+      return usuarios.update({
+        passw: passwordHash
+      },{
+        where: {
+          id: id
+        }
+      })
+      .then(usuarios => res.status(200).send(usuarios))
+      .catch(error => res.status(400).send(error))
+    }
   }
 };
