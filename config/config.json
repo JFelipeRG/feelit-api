@@ -3,21 +3,21 @@
     "username": "feel",
     "password": "root",
     "database": "feel it",
-    "host": "127.0.0.1",
+    "host": "database-feelit.c7cug9dwkhmd.us-east-1.rds.amazonaws.com",
     "dialect": "mysql"
   },
   "test": {
     "username": "feel",
     "password": "root",
     "database": "feel it",
-    "host": "127.0.0.1",
+    "host": "database-feelit.c7cug9dwkhmd.us-east-1.rds.amazonaws.com",
     "dialect": "mysql"
   },
   "production": {
     "username": "feel",
     "password": "root",
     "database": "feel it",
-    "host": "127.0.0.1",
+    "host": "database-feelit.c7cug9dwkhmd.us-east-1.rds.amazonaws.com",
     "dialect": "mysql"
   }
 }
