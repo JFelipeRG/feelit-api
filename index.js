@@ -11,7 +11,7 @@ const upload = require('./lib/storage')
 app.use(cors())
 app.use(express.json())
 
-app.get('/', (_, response) => {
+app.use('/', (_, response) => {
     response.send({
         message: 'Bienvenido a la API de Feel It'
     });
