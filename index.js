@@ -69,5 +69,3 @@ const server = app.listen(port, (err) => {
 
     console.log(`Servidor escuchando en el puerto ${server.address().port}`)
 })
-
-module.exports = app
