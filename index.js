@@ -3,6 +3,11 @@ const cors = require('cors')
 const port = 9000
 const app = express()
 
+const userController = require('./controllers/usuarios')
+const cancionesController = require('./controllers/canciones')
+const postsController = require('./controllers/posts')
+const upload = require('./lib/storage')
+
 app.use(cors())
 app.use(express.json())
 
