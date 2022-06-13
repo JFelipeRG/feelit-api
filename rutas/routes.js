@@ -24,6 +24,7 @@ module.exports = (() => {
     })
     
     
+    
     /**         RUTAS DE USUARIOS         */
     rutas.post('/user/search', userController.search)
     
