@@ -4,7 +4,6 @@ const rutas = require('./rutas/routes')
 const port = process.env.PORT || 9000
 const app = express()
 
-app.use(cors({ origin: "https://feel-it.vercel.app", credentials: true }))
 app.use(cors())
 app.use(express.json())
 
